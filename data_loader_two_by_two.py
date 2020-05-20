@@ -2,7 +2,7 @@ import numpy as np
 
 
 def get_data_sets():
-    '''Creates generator functions we will use for testing our neural network'''
+    '''Creates generator functions we will use for training and testing our neural network'''
     examples = [np.array([[0, 0], [0, 1]]), np.array([[0, 0], [1, 1]]), np.array([[0, 1], [1, 1]]),
                 np.array([[1, 1], [1, 0]]), np.array([[1, 1], [0, 1]]), np.array([[1, 0], [1, 0]]),
                 np.array([[1, 0], [0, 1]]), np.array([[0, 1], [0, 1]]), np.array([[1, 1], [0, 0]]),

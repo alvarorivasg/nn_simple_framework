@@ -1,1 +1,4 @@
-mynn_framework.code-workspace
+.vscode
+__pycache__
+nn_framework.__pycache__
+.DS_Store
