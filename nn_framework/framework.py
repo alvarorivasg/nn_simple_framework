@@ -3,19 +3,26 @@ import numpy as np
 class ANN:
     def __init__(self, model=None, expected_range=(-1,1)):
         self.layers = model
-        self.n_iter_train=int(1e8)
-        self.n_iter_eval=int(1e6)
-        self.expected_range=expected_range
+        self.n_iter_train = int(1e8)
+        self.n_iter_eval = int(1e6)
+        self.expected_range = expected_range
 
 
     def train(self, training_set):
         for iter in range(self.n_iter_train):
-            x=self.normalize(next(training_set()).ravel())
-            print(x)
+            x = self.normalize(next(training_set()).ravel())
+            y = self.forward_prop(x)
+            print(y)
 
     def evaluate(self, evaluation_set):
         for iter in range(self.n_iter_eval):
-            x=self.normalize(next(evaluation_set()).ravel())
+            x = self.normalize(next(evaluation_set()).ravel())
+            y = self.forward_prop(x)
+
+    def forward_prop(self, x):
+        y = x.ravel()[np.newaxis, :]
+        y = self.layers[0].forward_prop(y)
+        return y.ravel()
 
     def normalize(self, values):
         '''Transforms input-output values so they fall between -0.5 and 0.5'''
