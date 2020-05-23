@@ -21,7 +21,8 @@ class ANN:
 
     def forward_prop(self, x):
         y = x.ravel()[np.newaxis, :]
-        y = self.layers[0].forward_prop(y)
+        for layer in self.layers:
+            y = layer.forward_prop(y)
         return y.ravel()
 
     def normalize(self, values):
