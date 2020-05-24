@@ -2,6 +2,7 @@ import data_loader_two_by_two as dat
 import nn_framework.framework as framework
 import nn_framework.layer as layer
 import nn_framework.activation as activation
+import nn_framework.error_fun as error_fun
 
 N_NODES = [7,4,6,5]
 
@@ -14,8 +15,8 @@ n_pixels = sample.size
 n_nodes = [n_pixels] + N_NODES + [n_pixels]
 model = []
 for i_layer in range(len(n_nodes) - 1):
-    model.append(layer.Dense(n_nodes[i_layer], n_nodes[i_layer + 1], activation.tanh))
+    model.append(layer.Dense(n_nodes[i_layer], n_nodes[i_layer + 1], activation.TanH))
 
-autoencoder = framework.ANN(model=model, expected_range=input_value_range)
+autoencoder = framework.ANN(model=model, error_fun=error_fun.Sqr, expected_range=input_value_range)
 autoencoder.train(training_set)
 autoencoder.evaluate(evaluation_set)

@@ -1,6 +1,6 @@
 import numpy as np
 
-class tanh:
+class TanH:
     @staticmethod
     def calc(v):
         return np.tanh(v)
