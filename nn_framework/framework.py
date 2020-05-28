@@ -5,7 +5,7 @@ plt.switch_backend("agg") #no figure printed on the screen
 
 
 class ANN:
-    def __init__(self, model = None, error_fun = None, expected_range =  (-1,1) ):
+    def __init__(self, model = None, error_fun = None, expected_range =  (-1,1), printer = None ):
         self.layers = model
         self.error_fun = error_fun
         self.error_history = []
@@ -16,6 +16,7 @@ class ANN:
         self.report_min = -3
         self.report_max = 0
         self.expected_range = expected_range
+        self.printer = printer
 
         self.reports_path = "reports"
         self.report_name = "performance_history.png"
@@ -35,6 +36,7 @@ class ANN:
 
             if (i_iter + 1) % self.viz_interval == 0: #+ 1 to avoid a report on the 0th iter
                 self.report()
+                self.printer.render(self, x, f"train_{i_iter + 1:08d}")
 
     def evaluate(self, evaluation_set):
         for i_iter in range(self.n_iter_eval):
@@ -46,10 +48,23 @@ class ANN:
 
             if (i_iter + 1) % self.viz_interval == 0:
                 self.report()
+                self.printer.render(self, x, f"train_{i_iter + 1:08d}")
 
     def forward_prop(self, x):
         y = x.ravel()[np.newaxis, :]
         for layer in self.layers:
+            y = layer.forward_prop(y)
+        return y.ravel()
+
+    def forward_prop_to_layer(self, x, i_layer):
+        y = x.ravel()[np.newaxis, :]
+        for layer in self.layers[:i_layer]:
+            y = layer.forward_prop(y)
+        return y.ravel()
+
+    def forward_prop_from_layer(self, x, i_layer):
+        y = x.ravel()[np.newaxis, :]
+        for layer in self.layers[i_layer:]:
             y = layer.forward_prop(y)
         return y.ravel()
 
