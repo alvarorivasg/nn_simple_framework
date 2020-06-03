@@ -17,7 +17,7 @@ printer = Printer(input_shape=sample.shape)
 n_nodes = [n_pixels] + N_NODES + [n_pixels]
 model = []
 for i_layer in range(len(n_nodes) - 1):
-    model.append(layer.Dense(n_nodes[i_layer], n_nodes[i_layer + 1], activation.TanH))
+    model.append(layer.Dense(n_nodes[i_layer], n_nodes[i_layer + 1], activation.ReLU))
 
 autoencoder = framework.ANN(model=model, error_fun=error_fun.Sqr, expected_range=input_value_range, printer=printer)
 autoencoder.train(training_set)
