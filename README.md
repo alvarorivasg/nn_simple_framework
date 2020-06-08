@@ -1,3 +1,3 @@
 A simple Neural Network framework built in Python, following the guidance of Brandon Rohrer.
 
-25/05: this is looking better and better!
+It has been a nice way to both play with OOP and DL, but there are some big mistakes in the way the project was structured for the course. The way of computing the derivative of the activation function, in order to backpropagate the errors, is not possible following the schema that Brandon proposed. However, the network still "learns", if we choose the hyperbolic tangent as the activation function, as the derivative the current code computes is close to the actual derivative. Cacheing the results of the activation function during the forward propagation, so aftwerwards I can find its derivative, will allow me to overcome this problem. But I will also need to change some of the structure of the framework; I think I'll ask for some advice! :) 
